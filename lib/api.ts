@@ -8,6 +8,7 @@ export interface PlacePrediction {
 }
 
 export interface PlaceDetails {
+  place_id?: string // Added optional place_id to match Google Places API response
   name: string
   formatted_address: string
   geometry: {

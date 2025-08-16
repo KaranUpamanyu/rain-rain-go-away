@@ -7,7 +7,7 @@ export default function WeatherTripPlanner() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header with search and date controls */}
-      <div className="bg-card border-b border-border">
+      <div className="sticky top-0 z-50 bg-card border-b border-border">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
             <div className="flex-1">

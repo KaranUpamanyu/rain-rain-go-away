@@ -2,8 +2,13 @@
 
 import { MapPin, Zap } from "lucide-react"
 import { Card } from "@/components/ui/card"
+import type { PlaceDetails } from "@/lib/api"
 
-export function MapView() {
+interface MapViewProps {
+  location?: PlaceDetails | null
+}
+
+export function MapView({ location }: MapViewProps) {
   return (
     <Card className="w-full h-96 lg:h-[500px] bg-card border-border relative overflow-hidden">
       {/* Placeholder for Google Maps integration */}
@@ -27,13 +32,26 @@ export function MapView() {
         </div>
       </div>
 
-      {/* Sample location markers */}
-      <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-        San Francisco, CA
-      </div>
-      <div className="absolute bottom-4 right-4 bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium">
-        72°F • Sunny
-      </div>
+      {/* Dynamic location markers based on selected location */}
+      {location ? (
+        <>
+          <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
+            {location.name}
+          </div>
+          <div className="absolute bottom-4 right-4 bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium">
+            Lat: {location.geometry.location.lat.toFixed(4)}, Lng: {location.geometry.location.lng.toFixed(4)}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
+            Select a location
+          </div>
+          <div className="absolute bottom-4 right-4 bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium">
+            Search above to get started
+          </div>
+        </>
+      )}
     </Card>
   )
 }

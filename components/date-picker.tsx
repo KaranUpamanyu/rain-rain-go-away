@@ -1,22 +1,31 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/input"
 
-export function DatePicker() {
-  const [selectedDate, setSelectedDate] = useState("");
+interface DatePickerProps {
+  date?: Date
+  onDateChange?: (date: Date | undefined) => void
+}
+
+export function DatePicker({ date, onDateChange }: DatePickerProps) {
+  const selectedDate = date ? date.toISOString().split("T")[0] : ""
+
+  const handleDateChange = (dateString: string) => {
+    if (dateString) {
+      onDateChange?.(new Date(dateString))
+    } else {
+      onDateChange?.(undefined)
+    }
+  }
 
   return (
-    <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
-      <div className="relative">
-        <Input
-          type="date"
-          value={selectedDate}
-          min={new Date().toISOString().split("T")[0]}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          className="pl-10 pr-4 h-12 w-full sm:w-48 bg-input border-border focus:ring-2 focus:ring-ring"
-        />
-      </div>
+    <div className="w-full lg:w-auto">
+      <Input
+        type="date"
+        value={selectedDate}
+        onChange={(e) => handleDateChange(e.target.value)}
+        className="h-12 w-full sm:w-48 bg-input border-border focus:ring-2 focus:ring-ring"
+      />
     </div>
-  );
+  )
 }
